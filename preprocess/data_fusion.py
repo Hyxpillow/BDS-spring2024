@@ -17,19 +17,16 @@ def merge_google_trend(df: pd.DataFrame):
         if df.loc[i, ["profitable"]].iloc[0] == 1:
             trend.loc[(trend["begin_date"] <= date) & (date <= trend["end_date"]), ["movie_gain"]] += 1
     df = df.drop(["release_date"], axis=1)
+    trend['cumulative_gain'] = trend['movie_gain'].cumsum()
+    trend['cumulative_count'] = trend['movie_count'].cumsum()
 
     _, ax1 = plt.subplots(figsize=(20, 10))
     ax1.plot(trend['begin_date'], trend['interest'])
 
+    trend.loc[0, 'cumulative_gain'] = 0
     ax2 = ax1.twinx()
-    # y = []
-    # for i, _count in enumerate(trend["movie_gain"]):
-    #     if _count == 0:
-    #         y.append(None)
-    #     else:
-    #         y.append(trend['movie_gain'][i])
-    ax2.plot(trend['begin_date'], trend['movie_gain'], color="orange")
-    # ax2.set_ylim(0, 6)
+    ax2.plot(trend['begin_date'], trend['cumulative_gain'] / trend['cumulative_count'], color="orange")
+    ax2.set_ylim(0.2, 0.8)
 
     plt.savefig("./figures/trend.pdf", format="pdf")
     plt.clf()

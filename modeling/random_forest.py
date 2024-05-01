@@ -27,6 +27,3 @@ def do_random_forest(data_path):
     # plt.title("Random Forest Feature importances")
     # plt.show()
 
-do_random_forest("./datasets/clean.csv")
-do_random_forest("./datasets/clean_binning.csv")
-do_random_forest("./datasets/clean_reduction.csv")

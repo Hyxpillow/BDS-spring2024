@@ -7,6 +7,7 @@ from data_fusion import merge_google_trend
 from binning import binning, cal_info_gain
 from normalization import normalize, cal_cov_matrix
 from reduction import reduction
+from statistic import statistic
 
 df = pd.read_csv("./download/raw.csv")
 df = df[["budget", "revenue", "runtime", "year", "release_date", "genres", "vote_average", "popularity", "production_companies"]]
@@ -19,6 +20,7 @@ df = select_genres_by_info_gain(df) #
 df = encode_production_companies(df)
 df = select_companies_by_info_gain(df)
 df = merge_google_trend(df) #
+# statistic(df)
 
 df.to_csv("./datasets/clean_raw.csv", index=False)
 df_bin = binning(df) #
