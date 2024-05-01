@@ -43,7 +43,3 @@ def do_knn(data_path):
     print("KNN", data_path)
     print("Train acc:", train_acc)
     print("Test  acc:", test_acc)
-
-do_knn("./datasets/clean.csv")
-do_knn("./datasets/clean_binning.csv")
-do_knn("./datasets/clean_reduction.csv")

@@ -1,5 +1,4 @@
-1. Do "python3 scripts/tmdb.py"
-    >> Firstly, it will generate a list of all videos (only id) ranging from 2022-01-01 to 2023-12-31. The list will be stored in "./movie_list.txt".
-    >> (Take 2 hours) Secondly, it will iterate over movie_list.txt to download the details of each video and save the json files into "./dataset"
-2. Do "python3 scripts/tocsv.py"
-    >> (Take 10 seconds) It will scan all json files in "./dataset". For each json, write it as a line into one csv "dataset.csv". Pick those meaningful features only.
+## TODO
+1.  ```python3 ./download/download.py```
+	You can skip this step since "./download/raw.csv" is already downloaded
+2. ```python3 ./preprocess/main.py```
