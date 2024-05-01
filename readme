@@ -2,3 +2,4 @@
 1.  ```python3 ./download/download.py```
 	You can skip this step since "./download/raw.csv" is already downloaded
 2. ```python3 ./preprocess/main.py```
+3. ```python3 ./modeling/main.py```
