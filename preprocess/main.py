@@ -4,7 +4,9 @@ from encoding import encode_genres, encode_production_companies
 from feature_selection import select_genres_by_info_gain
 from feature_selection import select_companies_by_info_gain
 from data_fusion import merge_google_trend
-from normalization import normalize
+from binning import binning, cal_info_gain
+from normalization import normalize, cal_cov_matrix
+from reduction import reduction
 
 df = pd.read_csv("./download/raw.csv")
 df = df[["budget", "revenue", "runtime", "year", "release_date", "genres", "vote_average", "popularity", "production_companies"]]
@@ -17,6 +19,16 @@ df = select_genres_by_info_gain(df) #
 df = encode_production_companies(df)
 df = select_companies_by_info_gain(df)
 df = merge_google_trend(df) #
-df.to_csv("./preprocess/clean_norm_free.csv", index=False)
+
+df.to_csv("./datasets/clean_raw.csv", index=False)
+df_bin = binning(df) #
+df_bin = normalize(df_bin) #
+cal_info_gain(df_bin)
 df = normalize(df) #
-df.to_csv("./preprocess/clean.csv", index=False)
+cal_cov_matrix(df)
+
+df.to_csv("./datasets/clean.csv", index=False)
+df_bin.to_csv("./datasets/clean_binning.csv", index=False)
+
+df = reduction(df)
+df.to_csv("./datasets/clean_reduction.csv", index=False)
