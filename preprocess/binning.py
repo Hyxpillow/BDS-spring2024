@@ -8,6 +8,8 @@ def binning(df: pd.DataFrame):
     df = binning_budget(df)
     df = binning_vote_average(df)
     df = binning_popularity(df)
+    df = binning_popularity_actor(df)
+    df = binning_avg_age(df)
     df = binning_google_trend(df)
     return df
 
@@ -69,6 +71,31 @@ def binning_google_trend(df: pd.DataFrame):
     df.loc[df["google_trend"] >= c, "A"] = 3
     df = df.drop(["google_trend"], axis=1)
     df.rename(columns={'A': 'google_trend'}, inplace=True)
+    return df
+
+def binning_popularity_actor(df: pd.DataFrame):
+    a = df["core_actor"].quantile(0.25)
+    b = df["core_actor"].quantile(0.5)
+    c = df["core_actor"].quantile(0.75)
+    df["A"] = 0
+    df.loc[df["core_actor"] >= a, "A"] = 1
+    df.loc[df["core_actor"] >= b, "A"] = 2
+    df.loc[df["core_actor"] >= c, "A"] = 3
+    df = df.drop(["core_actor"], axis=1)
+    df.rename(columns={'A': 'core_actor'}, inplace=True)
+    return df
+
+
+def binning_avg_age(df: pd.DataFrame):
+    a = df["actor_avg_age"].quantile(0.25)
+    b = df["actor_avg_age"].quantile(0.5)
+    c = df["actor_avg_age"].quantile(0.75)
+    df["A"] = 0
+    df.loc[df["actor_avg_age"] >= a, "A"] = 1
+    df.loc[df["actor_avg_age"] >= b, "A"] = 2
+    df.loc[df["actor_avg_age"] >= c, "A"] = 3
+    df = df.drop(["actor_avg_age"], axis=1)
+    df.rename(columns={'A': 'actor_avg_age'}, inplace=True)
     return df
 
 def cal_info_gain(df: pd.DataFrame):

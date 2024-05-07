@@ -13,6 +13,7 @@ def reduction(df: pd.DataFrame):
     # pick PC1 ~ PC12
     pca = PCA(n_components=5)
     pca.fit(df)
+
     df = pd.DataFrame(pca.transform(df))
     df['profitable'] = tmp
     return df

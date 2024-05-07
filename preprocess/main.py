@@ -1,4 +1,5 @@
 import pandas as pd
+from missing import remove_missing_value
 from label import generate_label
 from encoding import encode_genres, encode_production_companies
 from feature_selection import select_genres_by_info_gain
@@ -10,22 +11,30 @@ from reduction import reduction
 from statistic import statistic
 
 df = pd.read_csv("./download/raw.csv")
-df = df[["budget", "revenue", "runtime", "year", "release_date", "genres", "vote_average", "popularity", "production_companies"]]
+df = df[["budget", "revenue", "runtime", "year", "release_date", "genres", "vote_average", "popularity", "core_actor", "actor_avg_age", "production_companies", "month"]]
 df["budget"] = df["budget"].astype(int)
 df["runtime"] = df["runtime"].astype(int)
 
+df = remove_missing_value(df)
+
 df = generate_label(df) #
 df = encode_genres(df) #
+
+
 df = select_genres_by_info_gain(df) #
+
 df = encode_production_companies(df)
 df = select_companies_by_info_gain(df)
+
 df = merge_google_trend(df) #
 # statistic(df)
 
 df.to_csv("./datasets/clean_raw.csv", index=False)
+
 df_bin = binning(df) #
 df_bin = normalize(df_bin) #
 cal_info_gain(df_bin)
+
 df = normalize(df) #
 cal_cov_matrix(df)
 
