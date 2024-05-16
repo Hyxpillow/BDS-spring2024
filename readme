@@ -1,5 +1,8 @@
-## TODO
+You can skip steps 1 and 2 because "./download/raw.csv" is already downloaded
+
 1.  ```python3 ./download/download.py```
-	You can skip this step since "./download/raw.csv" is already downloaded
+2.  ```python3 ./download/actors.py```
+Now we get "./download/raw.csv"
 2. ```python3 ./preprocess/main.py```
-3. ```python3 ./modeling/main.py```
+
+Now preprocessing has finished, you can check  "./figures/" and "./datasets"
