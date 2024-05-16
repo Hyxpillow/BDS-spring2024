@@ -126,12 +126,18 @@ def cal_info_gain(df: pd.DataFrame):
             condition_entropy_sum += p_set[val] * entropy_conditional
         IG[col_name] = entropy_profitable - condition_entropy_sum
     res = sorted(IG.items(), key=lambda x:x[1], reverse=True)
-    # for feature, ig in res:
-    #     print("IG(%s) = %.4f" % (feature, ig))
+
+    print("all ig")
+    for feature, ig in res:
+        print(feature, ig)
+        # print("IG(%s) = %.4f" % (feature, ig))
     labels, values = zip(*res)
-    plt.figure(figsize=(6.4, 4.8))  
+    plt.figure(figsize=(6.4, 4.8))
     plt.bar(labels, values, color='skyblue')
     plt.xticks(rotation=20, ha='right')
+    plt.xlabel("Features")
+    plt.ylabel("Info Gain", fontsize=18)
     plt.savefig('./figures/info_gain.pdf', format="pdf")
+    plt.savefig('./figures/info_gain.png', format="png")
     plt.clf()
     return

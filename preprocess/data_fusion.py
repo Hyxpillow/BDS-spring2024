@@ -19,19 +19,28 @@ def merge_google_trend(df: pd.DataFrame):
     df = df.drop(["release_date"], axis=1)
     trend['cumulative_gain'] = trend['movie_gain'].cumsum()
     trend['cumulative_count'] = trend['movie_count'].cumsum()
+    trend['cumulative_profitability'] = trend['cumulative_gain'] / trend['cumulative_count']
 
     _, ax1 = plt.subplots(figsize=(20, 10))
     ax1.plot(trend['begin_date'], trend['interest'],
-             linewidth=5.0)
+             linewidth=5.0, label="Google Trend")
 
     trend.loc[0, 'cumulative_gain'] = 0
     ax2 = ax1.twinx()
     ax2.plot(trend['begin_date'], 
-             trend['cumulative_gain'] / trend['cumulative_count'], 
+             trend['cumulative_profitability'], 
              color="orange",
-             linewidth=5.0)
+             linewidth=5.0, label="Profitablity")
+    trend.to_csv("tmp.csv")
     ax2.set_ylim(0.2, 0.8)
-
+    ax1.figure.legend(fontsize=30)
+    # plt.axis('off')
+    # plt.legend()
+    ax1.set_xlabel("date", fontsize=24)
+    ax1.set_ylabel("Google Trend", fontsize=24)
+    ax2.set_ylabel("Profitability", fontsize=24)
+    plt.title("Google vs. Profitability", fontsize=24)
     plt.savefig("./figures/trend.pdf", format="pdf")
+    plt.savefig("./figures/trend.png")
     plt.clf()
     return df

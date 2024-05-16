@@ -1,6 +1,7 @@
 # There are 15 columns for genres after encoding, which may lead to
 # curse of dimensionality
 import math
+from matplotlib import pyplot as plt
 import pandas as pd
 
 def select_genres_by_info_gain(df: pd.DataFrame, topK = 2):
@@ -34,6 +35,15 @@ def select_genres_by_info_gain(df: pd.DataFrame, topK = 2):
         info_gain[genre] = entropy_profitable - (p_true * cond1_entropy + p_false * cond2_entropy)
     
     res = sorted(info_gain.items(), key=lambda x:x[1], reverse=True)
+    x = [item[0] for item in res]
+    y = [item[1] for item in res]
+    for item in res:
+        print(item[0], item[1])
+    # plt.bar(x, y)
+    # plt.xlabel('Genres')
+    # plt.ylabel('Infomation Gain')
+    # plt.show()
+
     topk_genres = [genre for genre, _ in res[:topK]]
     # Compared with the results from RapidMiner, the procedure here is correct.
     drop_genres = [genre for genre in all_genres if genre not in topk_genres]
