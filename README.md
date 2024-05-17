@@ -1,6 +1,4 @@
----
-marp: true
----
+
 # CSCI-GA 3033 Big Data Science Final Project
 
 ## Team Members
