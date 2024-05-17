@@ -1,4 +1,3 @@
-
 # CSCI-GA 3033 Big Data Science Final Project
 
 ## Team Members
@@ -34,5 +33,5 @@ The initial dataset required for this component is pre-downloaded. You can find 
 
 **Execution Instructions:**
 
-1. Open and run the `movie_recommendation.ipynb` notebook located in the notebook folder.
+1. Open and run the `movie_recommendation.ipynb` notebook located in the notebook folder. Make sure Spark is installed and running on your machine.
 2. The notebook guides you through data preprocessing, exploration, model training, evaluation, and finally, deploying the recommendation system.
